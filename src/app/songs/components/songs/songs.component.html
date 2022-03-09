@@ -1,0 +1,42 @@
+<div class="ui two column centered grid" *ngIf="{ 
+    status: status$ | async, 
+    currentTime: currentTime$ | async,
+    currentPlayingSong: currentPlayingSong$ | async
+ } as data">
+    <div class="songs ui column left aligned divided list">
+        <div class="song item" *ngFor="let song of songs$ | async">
+            <div class="right floated content">
+                <ng-container *ngIf="song.id === data.currentPlayingSong?.id">
+                    <div class="current-time">
+                        {{ data.currentTime | time }} / {{ song.duration }}
+                    </div>
+                    <div class="ui buttons">
+                        <div (click)="onPlay(song)" *ngIf="data.status === 'paused' || data.status === 'stopped'"
+                            class="ui button">
+                            <i class="play icon"></i>
+                        </div>
+                        <div (click)="onPause(song)" *ngIf="data.status === 'playing'" class="ui button">
+                            <i class="pause icon"></i>
+                        </div>
+                        <div (click)="onStop(song)" *ngIf="data.status === 'playing'" class="ui button">
+                            <i class="stop icon"></i>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="song.id !== data.currentPlayingSong?.id">
+                    <div class="ui buttons">
+                        <div (click)="onPlay(song)" class="ui button">
+                            <i class="play icon"></i>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <img class="ui avatar image" [src]="song.avatar">
+            <div class="content">
+                <div class="title" [routerLink]="[song.id]">
+                    {{ song.title }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
