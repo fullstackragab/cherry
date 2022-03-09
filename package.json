@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && copy dist\\fullstackragab\\index.html dist\\fullstackragab\\404.html",
+    "build": "ng build && copy dist\\cherry\\index.html dist\\cherry\\404.html",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
