@@ -7,6 +7,9 @@
     line-height: 25px;
 }
 .songs {
+    @media (max-width: 768px) {
+        margin: 10px;
+    }
     @media (min-width: 768px) {
         max-width: 460px;
     }
