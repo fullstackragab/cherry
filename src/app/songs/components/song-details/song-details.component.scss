@@ -2,3 +2,9 @@
     display: inline;
     width: 140px;
 }
+
+.song {
+    @media (min-width: 768px) {
+        width: 460px !important;
+    }
+}

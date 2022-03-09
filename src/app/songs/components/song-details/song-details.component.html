@@ -1,7 +1,7 @@
 <ng-container *ngIf="{song: currentDetailsSong$ | async } as data">
 
     <div class="ui container centered grid" *ngIf="data.song">
-        <div class="ui card column" style="max-width: 500px;">
+        <div class="song ui card column">
             <div class="image">
                 <!-- <img class="image" src="assets/songs/thumbs/Untitled.png" [alt]="data.song.title"> -->
                 <img class="image" [src]="data.song.avatar" [alt]="data.song.title">
