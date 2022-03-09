@@ -40,14 +40,12 @@ export class AudioPlayerService {
 
   hidePlayer(el: HTMLElement, song: Song) {
     if(this.song?.id === song.id) {
-      console.log(' first ')
+
       el.removeChild(this.audio);
       this.audio.controls = false;
       this.document.body.appendChild(this.audio);
 
     } else if(this.audio2 && !this.audio2.paused) {
-
-      console.log('second')
 
       this.audio2.removeEventListener('play', this.onAudio2Play);
       this.document.body.removeChild(this.audio);
@@ -112,7 +110,6 @@ export class AudioPlayerService {
   }
 
   private onAudio2Play = () => {
-    console.log(' on Audio 2 play', this.audio, this.audio2);
     if(this.audio2 && this.audio) {
       this.audio.pause();
       if(this.song2)
