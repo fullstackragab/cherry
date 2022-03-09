@@ -1,16 +1,13 @@
 <ng-container *ngIf="{song: currentDetailsSong$ | async } as data">
 
-    <div class="ui two column centered grid" *ngIf="data.song">
-        <div class="ui card column">
+    <div class="ui container centered grid" *ngIf="data.song">
+        <div class="ui card column" style="max-width: 500px;">
             <div class="image">
-                <img class="image" src="assets/songs/thumbs/Untitled.png" [alt]="data.song.title">
-                <!-- <img class="image" [src]="data.song.avatar" [alt]="data.song.title"> -->
+                <!-- <img class="image" src="assets/songs/thumbs/Untitled.png" [alt]="data.song.title"> -->
+                <img class="image" [src]="data.song.avatar" [alt]="data.song.title">
             </div>
             <div class="content">
               <a class="header">{{ data.song.title }}</a>
-              <!-- <div class="meta">
-                <span class="date">Joined in 2013</span>
-              </div> -->
               <div class="description left aligned">
                 <div><div class="label">Title: </div>{{ data.song.title }}</div>
                 <div><div class="label">Artist: </div>{{ data.song.artist }}</div>

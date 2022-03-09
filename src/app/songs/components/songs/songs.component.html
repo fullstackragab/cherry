@@ -1,9 +1,9 @@
-<div class="ui two column centered grid" *ngIf="{ 
+<div class="container ui column centered grid" *ngIf="{ 
     status: status$ | async, 
     currentTime: currentTime$ | async,
     currentPlayingSong: currentPlayingSong$ | async
  } as data">
-    <div class="songs ui column left aligned divided list">
+    <div class="songs ui column left aligned divided list" style="max-width: 500px;">
         <div class="song item" *ngFor="let song of songs$ | async">
             <div class="right floated content">
                 <ng-container *ngIf="song.id === data.currentPlayingSong?.id">
@@ -33,7 +33,7 @@
             </div>
             <img class="ui avatar image" [src]="song.avatar">
             <div class="content">
-                <div class="title" [routerLink]="[song.id]">
+                <div class="title ui link" [routerLink]="[song.id]">
                     {{ song.title }}
                 </div>
             </div>
