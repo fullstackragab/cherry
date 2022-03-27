@@ -1,0 +1,11 @@
+.header {
+    font-size: large;
+}
+.music {
+    width: 64px;
+    height: 64px;
+    position: fixed;
+    bottom: 100px;
+    left: calc((100% - 64px) / 2);
+    cursor: pointer;
+}

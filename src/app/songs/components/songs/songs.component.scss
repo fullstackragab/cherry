@@ -1,10 +1,13 @@
-.current-time {
-    display: inline;
-    padding-right: 10px;
-}
-.title {
-    cursor: pointer;
-    line-height: 25px;
+.main-title {
+    font-size: 24px;
+    margin: 20px;
+    background: -webkit-linear-gradient(50deg, #fc7ccb, #6f91ec);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    @media (min-width: 768px) {
+        text-align: center;
+        padding-bottom: 10px;
+    }
 }
 .songs {
     @media (max-width: 768px) {
@@ -12,5 +15,77 @@
     }
     @media (min-width: 768px) {
         max-width: 460px;
+        margin: 0px auto;
+    }
+    .song {
+        height: 100px;
+        border-radius: 10px;
+        background-color: #2c2e3d;
+        cursor: pointer;
+        margin: 10px;
+        display: flex;
+        width: calc(100% - 20px);
+        position: relative;
+        &:hover {
+            background-color: #474a64;
+        }
+        .image {
+            width: 90px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .content {
+            margin: 10px;
+            .duration {
+                margin-top: 16px;
+                background: -webkit-linear-gradient(50deg, #ffeff9, #6f91ec);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .title {
+                font-weight: bold;
+                background: -webkit-linear-gradient(50deg, #f592cf, #6f91ec);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .artist {
+                // color: #adadad;
+                background: -webkit-linear-gradient(50deg, #f592cf, #6f91ec);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            flex-grow: 1;
+        }
+        .buttons {
+            margin: 10px;
+            text-align: right;
+            width: 50px;
+            top: calc((100% - 50px) / 2);
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            right: 20px;
+            align-items: center;
+            .icon {
+                width: 32px;
+                height: 32px;
+                margin-right: 6px;
+                filter: saturate(.3)
+            }
+            .current-time {
+                padding-right: 10px;
+                width: 140px;   
+                position: absolute;
+                top: 61px;
+                right: -8px;
+            }
+            .controls {
+                display: flex;
+            }
+        }
     }
 }
+// img {
+//     width: 100px;
+//     max-height: 100%;
+// }
