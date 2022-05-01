@@ -13,7 +13,9 @@ export class TimePipe implements PipeTransform {
       const tokens = calc2.split('.');
       const seconds = (tokens[0].length === 1 ? ('0' + tokens[0]) : tokens[0]) + '.' + tokens[1];
       const minutes = calc.toString();
-      return (minutes.length === 1 ? ('0' + minutes) : minutes) + ':' + seconds;
+      const result = (minutes.length === 1 ? ('0' + minutes) : minutes) + ':' + seconds;
+      console.log('result ', result);
+      return result;
     }
   }
 
