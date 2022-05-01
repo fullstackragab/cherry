@@ -15,16 +15,16 @@ export class AudioPlayerService {
   song2: Song | null = null;
   renderer!: Renderer2;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private rendererFactory: RendererFactory2, private readonly store: Store) { 
+  constructor(@Inject(DOCUMENT) private document: Document, private rendererFactory: RendererFactory2, private readonly store: Store) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
     this.audio = this.renderer.createElement('audio');
 
-    
+
     this.renderer.appendChild(this.document.body, this.audio);
   }
 
   showPlayer(el: HTMLElement, song: Song) {
-    if(song.id === this.song?.id) {
+    if (song.id === this.song?.id) {
       this.document.body.removeChild(this.audio);
       this.audio.controls = true;
       el.appendChild(this.audio);
@@ -39,13 +39,13 @@ export class AudioPlayerService {
   }
 
   hidePlayer(el: HTMLElement, song: Song) {
-    if(this.song?.id === song.id) {
+    if (this.song?.id === song.id) {
 
       el.removeChild(this.audio);
       this.audio.controls = false;
       this.document.body.appendChild(this.audio);
 
-    } else if(this.audio2 && !this.audio2.paused) {
+    } else if (this.audio2.src && !this.audio2.paused) {
 
       this.audio2.removeEventListener('play', this.onAudio2Play);
       this.document.body.removeChild(this.audio);
@@ -62,25 +62,24 @@ export class AudioPlayerService {
   }
 
   play(song: Song) {
-    if(this.audio) {
-      const currentSongUrl = this.getCurrentSongUrl(song);
-      if(this.audio.src != currentSongUrl) {
-        this.audio.src = song.url;
-      }
-      this.song = song;
-      this.audio.play();
-      this.audio.addEventListener('pause', this.onPause);
-      this.clearTimeUpdateInterval();
-      this.timeUpdateIntervalRef = setInterval(() => {
-          const currentTime = this.getCurrentTime();
-          this.store.dispatch(setCurrentTimeAction({currentTime}));
-      }, 100)
+    const currentSongUrl = this.getCurrentSongUrl(song);
+
+    if (this.audio.src != currentSongUrl) {
+      this.audio.src = song.url;
     }
+    this.song = song;
+    this.audio.play();
+    this.audio.addEventListener('pause', this.onPause);
+    this.clearTimeUpdateInterval();
+    this.timeUpdateIntervalRef = setInterval(() => {
+      const currentTime = this.getCurrentTime();
+      this.store.dispatch(setCurrentTimeAction({ currentTime }));
+    }, 100)
   }
 
   pause(song: Song) {
-     const currentSongUrl = this.getCurrentSongUrl(song);
-    if(this.audio && this.audio.src == currentSongUrl) {
+    const currentSongUrl = this.getCurrentSongUrl(song);
+    if (this.audio.src == currentSongUrl) {
       this.audio.pause();
       this.clearTimeUpdateInterval();
       this.audio.removeEventListener('pause', this.onPause);
@@ -89,7 +88,7 @@ export class AudioPlayerService {
 
   stop(song: Song) {
     const currentSongUrl = this.getCurrentSongUrl(song);
-    if(this.audio && this.audio.src == currentSongUrl) {
+    if (this.audio.src == currentSongUrl) {
       this.audio.pause();
       this.audio.currentTime = 0;
       this.clearTimeUpdateInterval();
@@ -99,21 +98,21 @@ export class AudioPlayerService {
   }
 
   getCurrentTime() {
-    if(this.audio) return this.audio.currentTime;
+    if (this.audio.src) return this.audio.currentTime;
     else return 0;
   }
 
   private onPause = () => {
-    if(this.audio.controls === true && this.song) {
-      this.store.dispatch(pauseSongAction({song: this.song}))
+    if (this.audio.controls === true && this.song) {
+      this.store.dispatch(pauseSongAction({ song: this.song }))
     }
   }
 
   private onAudio2Play = () => {
-    if(this.audio2 && this.audio) {
+    if (this.audio.src) {
       this.audio.pause();
-      if(this.song2)
-        this.store.dispatch(setCurrentPlayingSongAction({song: this.song2}));
+      if (this.song2)
+        this.store.dispatch(setCurrentPlayingSongAction({ song: this.song2 }));
     }
   }
 
@@ -122,10 +121,10 @@ export class AudioPlayerService {
   }
 
   private clearTimeUpdateInterval() {
-      if(this.timeUpdateIntervalRef) {
-          clearInterval(this.timeUpdateIntervalRef);
-          this.timeUpdateIntervalRef = null;
-      }
+    if (this.timeUpdateIntervalRef) {
+      clearInterval(this.timeUpdateIntervalRef);
+      this.timeUpdateIntervalRef = null;
+    }
   }
 
 }
