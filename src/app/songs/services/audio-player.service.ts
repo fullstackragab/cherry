@@ -3,7 +3,7 @@ import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { Song } from '../models/song';
-import { pauseSongAction, setCurrentPlayingSongAction, setCurrentTimeAction } from '../store/songs.actions';
+import { pauseSongAction, setCurrentPlayingSongAction, setCurrentTimeAction, stopSongAction } from '../store/songs.actions';
 
 @Injectable()
 export class AudioPlayerService {
@@ -70,11 +70,12 @@ export class AudioPlayerService {
     this.song = song;
     this.audio.play();
     this.audio.addEventListener('pause', this.onPause);
+    this.audio.addEventListener('ended', this.onEnded);
     this.clearTimeUpdateInterval();
     this.timeUpdateIntervalRef = setInterval(() => {
       const currentTime = this.getCurrentTime();
       this.store.dispatch(setCurrentTimeAction({ currentTime }));
-    }, 100)
+    }, 500)
   }
 
   pause(song: Song) {
@@ -105,6 +106,12 @@ export class AudioPlayerService {
   private onPause = () => {
     if (this.audio.controls === true && this.song) {
       this.store.dispatch(pauseSongAction({ song: this.song }))
+    }
+  }
+
+  private onEnded = () => {
+    if (this.audio.controls === true && this.song) {
+      this.store.dispatch(stopSongAction({ song: this.song }))
     }
   }
 
